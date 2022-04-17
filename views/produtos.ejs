@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Produtos</title>
+    <%-include('./styleCategoria.ejs')%>
+    <%- include('./styleProduto.ejs')%>
+  </head>
+  <body>
+    <h2>Produtos Cadastrados</h2>
+    
+    <div class="adicionar">
+        <a href="/produto-cadastrar" class="btn-cadastrar"><i class="fa-solid fa-plus"></i> Cadastrar Produto</a>
+    </div>
+    <% if(p.length > 0){ %>
+        <table>
+          <thead>
+            <tr>
+              <th class="id">ID</th>
+              <th>Categoria</th>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i = 0; i <p.length; i++) {%> <% if(i%2 ==0 ){%>
+            <tr class="fundo">
+              <%}else{%>
+            </tr>
+            <tr>
+              <%}%>
+              <td class="id"><%= p[i].id %></td>
+              <td><%= p[i].categoria %></td>
+              <td><%= p[i].nome %></td>
+              <td><%= p[i].descricao %></td>
+              <td>R$ <%= p[i].preco %></td>
+              <td><a href="/produto-editar?id=<%= p[i].id %>" class="editar"><i class="fa-solid fa-pen"></i> Editar</a></td>
+              <td>
+                <a class="excluir" href="/produto-deletar?excluir=<%= p[i].id %>"
+                  ><i class="fa-solid fa-trash-can"></i> Excluir</a
+                >
+              </td>
+            </tr>        
+            <%}%>
+          </tbody>
+        </table>
+        <%} else{%>
+        <p class="alerta">
+          <i class="fa-solid fa-triangle-exclamation"></i> Não há produtos
+          cadastrados <i class="fa-solid fa-triangle-exclamation"></i>
+        </p>
+        <%}%>
+        <a href="/" class="voltar"><i class="fa-solid fa-angle-left"></i> Index</a>
+    
+        <script
+          src="https://kit.fontawesome.com/09c2a18d79.js"
+          crossorigin="anonymous"
+        ></script>
+  </body>
+</html>

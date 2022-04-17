@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categoria</title>
+    <%- include("./styleCategoria.ejs") %>
+  </head>
+  <body>
+    <h2>Categoria</h2>
+    <form action="/categoria-salvar" method="post">
+      <fieldset>
+        <legend>Cadastro da Categoria</legend>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" id="nome" required/>
+        <button type="submit"><i class="fa-solid fa-plus"></i> Cadastrar Categoria</button>
+      </fieldset>
+    </form>
+    <% if(categoria.length>0){ %>
+    <table>
+      <thead>
+        <tr>
+          <th class="id">Chave</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i = 0; i <categoria.length; i++) {%> 
+          <tr>
+            <td class="id"><%= categoria[i].id %></td>
+            <td><%= categoria[i].nome %></td>
+            <td><a class="excluir" href="/categoria-deletar?excluir=<%- categoria[i].id %> "><i class="fa-solid fa-trash-can"></i> Excluir</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <%}else{%>
+    <p class="alerta">
+      <i class="fa-solid fa-triangle-exclamation"></i> Não há categorias
+      cadastradas <i class="fa-solid fa-triangle-exclamation"></i>
+    </p>
+    <%}%>
+    <a href="/" class="voltar"><i class="fa-solid fa-angle-left"></i> Index</a>
+
+    <script
+      src="https://kit.fontawesome.com/09c2a18d79.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

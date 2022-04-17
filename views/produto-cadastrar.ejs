@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <%- include('./styleProduto.ejs') %>
+  <body>
+    <h2>Produtos</h2>
+    <% if(categoria.length > 0) {%> 
+      <form action="/produtos" method="get">
+        <fieldset>
+          <label for="nome">Nome</label>
+          <input type="text" name="nome" placeholder="Nome" required />
+          <label for="categoria">Categoria</label>
+          <select name="categoria" id="categoria">
+            <% for(let i = 0; i <categoria.length; i++) {%> 
+              <option value="<%- categoria[i].nome %>"><%- categoria[i].nome %></option>
+            <% } %>
+          </select>
+          <label for="descricao">Descrição</label>
+          <textarea
+            name="descricao"
+            id="descricao"
+            cols="30"
+            rows="10"
+            required
+          ></textarea>
+          <label for="preco">Preço</label>
+          <input type="text" name="preco" placeholder="Preços" required />
+          <button type="submit"> <i class="fa-solid fa-plus"></i> Cadastrar Produto</button>
+        </fieldset>
+      </form>
+    <% }else{ %> 
+      <p class="alerta">
+        <i class="fa-solid fa-triangle-exclamation"></i> Para cadastrar um produto, é necessário ter ao menos uma categoria cadastrada <i class="fa-solid fa-triangle-exclamation"></i>
+      </p>
+    <% } %>     
+    <p class="voltar"><a href="/"><i class="fa-solid fa-angle-left"></i> Index</a> <a href="/produto"><i class="fa-solid fa-angle-left"></i> Produtos</a></p>
+
+    <script
+      src="https://kit.fontawesome.com/09c2a18d79.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
