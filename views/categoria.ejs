@@ -9,43 +9,56 @@
   </head>
   <body>
     <h2>Categoria</h2>
-    <form action="/categoria-salvar" method="post">
-      <fieldset>
-        <legend>Cadastro da Categoria</legend>
-        <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome" required/>
-        <button type="submit"><i class="fa-solid fa-plus"></i> Cadastrar Categoria</button>
-      </fieldset>
-    </form>
-    <% if(categoria.length>0){ %>
-    <table>
-      <thead>
-        <tr>
-          <th class="id">Chave</th>
-          <th>Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for(let i = 0; i <categoria.length; i++) {%> 
+    <section class="tudo">
+      <form action="/categoria-salvar" method="post">
+        <fieldset>
+          <legend>Cadastro da Categoria</legend>
+          <label for="nome">Nome</label>
+          <input type="text" name="nome" id="nome" required/>
+          <div class="categorias">
+            <div class="campPersonalizado">
+              <div>
+                <label for="personalizado">Campo Personalizado</label>
+                <input type="text" name="personalizado" id="personalizado" required/>
+              </div>
+              <button><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+            </div>
+            <textarea name="cat-personalizado" id="catP"></textarea>
+          </div>
+          <button type="submit"><i class="fa-solid fa-plus"></i> Cadastrar Categoria</button>
+        </fieldset>
+      </form>
+      <% if(categoria.length>0){ %>
+      <table>
+        <thead>
           <tr>
-            <td class="id"><%= categoria[i].id %></td>
-            <td><%= categoria[i].nome %></td>
-            <td><a class="excluir" href="/categoria-deletar?excluir=<%- categoria[i].id %> "><i class="fa-solid fa-trash-can"></i> Excluir</a></td>
+            <th class="id">Chave</th>
+            <th>Valor</th>
           </tr>
-        <% } %>
-      </tbody>
-    </table>
-    <%}else{%>
-    <p class="alerta">
-      <i class="fa-solid fa-triangle-exclamation"></i> Não há categorias
-      cadastradas <i class="fa-solid fa-triangle-exclamation"></i>
-    </p>
-    <%}%>
+        </thead>
+        <tbody>
+          <% for(let i = 0; i <categoria.length; i++) {%> 
+            <tr>
+              <td class="id"><%= categoria[i].id %></td>
+              <td><%= categoria[i].nome %></td>
+              <td><a class="excluir" id="<%= categoria[i].id %>" ><i class="fa-solid fa-trash-can"></i> Excluir</a></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <%}else{%>
+      <p class="alerta">
+        <i class="fa-solid fa-triangle-exclamation"></i> Não há categorias
+        cadastradas <i class="fa-solid fa-triangle-exclamation"></i>
+      </p>
+      <%}%>
+    </section>
     <a href="/" class="voltar"><i class="fa-solid fa-angle-left"></i> Index</a>
 
     <script
       src="https://kit.fontawesome.com/09c2a18d79.js"
       crossorigin="anonymous"
     ></script>
+    <%- include("./sweetAlert.ejs") %>
   </body>
 </html>
