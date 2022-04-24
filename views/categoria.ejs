@@ -19,11 +19,12 @@
             <div class="campPersonalizado">
               <div>
                 <label for="personalizado">Campo Personalizado</label>
-                <input type="text" name="personalizado" id="personalizado" required/>
+                <input type="text" id="personalizado" />
               </div>
-              <button><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+              <a onclick="salvar()"><i class="fa-solid fa-floppy-disk"></i> Salvar</a>
+              <input type="hidden" name="personalizado" class="personalizado" value="">
             </div>
-            <textarea name="cat-personalizado" id="catP"></textarea>
+            <textarea name="cat-personalizado" id="catP" disabled></textarea>
           </div>
           <button type="submit"><i class="fa-solid fa-plus"></i> Cadastrar Categoria</button>
         </fieldset>
@@ -34,6 +35,8 @@
           <tr>
             <th class="id">Chave</th>
             <th>Valor</th>
+            <th>Campos Personalizados</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -41,6 +44,7 @@
             <tr>
               <td class="id"><%= categoria[i].id %></td>
               <td><%= categoria[i].nome %></td>
+              <td><%= categoria[i].personalizado %></td>
               <td><a class="excluir" id="<%= categoria[i].id %>" ><i class="fa-solid fa-trash-can"></i> Excluir</a></td>
             </tr>
           <% } %>
@@ -60,5 +64,19 @@
       crossorigin="anonymous"
     ></script>
     <%- include("./sweetAlert.ejs") %>
+    <script>
+      let personal = [];
+      const salvar = ()=>{
+        let valorPersonalizado = document.querySelector('#personalizado');
+        let insertPersonalizado = document.querySelector('.personalizado');
+        if ((valorPersonalizado.value).length > 0) {
+          let textArea = document.querySelector('#catP');
+          textArea.value += '- '+ valorPersonalizado.value + '\n';
+          personal.push(valorPersonalizado.value);
+          valorPersonalizado.value = '';
+          insertPersonalizado.value = personal;
+        }
+      };
+    </script>
   </body>
 </html>

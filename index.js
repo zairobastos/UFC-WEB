@@ -75,6 +75,7 @@ app.post("/categoria-salvar", function (req, res, next) {
   BDCategoria.addCategoria({
     id: categoria.length == 0 ? 0 : categoria[categoria.length - 1].id + 1,
     nome: req.body.nome,
+    personalizado: req.body.personalizado.split(","),
   });
   res.redirect("/categorias");
 });
