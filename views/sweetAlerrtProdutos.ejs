@@ -1,0 +1,24 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
+
+<script>
+  let click = document.querySelectorAll(".excluir");
+  for (let i = 0; i < click.length; i++) {
+    click[i].addEventListener("click", function (e) {
+      Swal.fire({
+        title: "Você tem certeza?",
+        text: "Você não poderá reverter isso!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, excluir!",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = "/produto-deletar?excluir=" + e.target.id;
+        }
+      });
+    });
+  }
+</script>

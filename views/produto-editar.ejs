@@ -19,28 +19,36 @@
           <input
             type="text"
             name="nome"
+            id="nome"
             placeholder="Nome"
             required
-            value="<%- p[pos].nome %>"
+            value="<%- p[pos].dados[0] %>"
           />
-          <label for="categoria">Categoria</label>
-          <select name="categoria" id="categoria">
-            <% for(let i = 0; i <c.length; i++) {%> 
-              <option value="<%- c[i].nome %>" <% if(c[i].nome == p[pos].categoria){ %> selected<% } %>  ><%- c[i].nome %></option>
-            <% } %>
-          </select>
-          <label for="descricao">Descrição</label>
-          <textarea name="descricao" id="descricao" cols="30" rows="10" required>
-  <%- p[pos].descricao %></textarea
-          >
           <label for="preco">Preço</label>
           <input
             type="text"
             name="preco"
+            id="preco"
             placeholder="Preços"
             required
-            value="<%- p[pos].preco %> "
+            value="<%- p[pos].dados[1] %> "
           />
+          <label for="categoria">Categoria</label>
+          <select name="categoria" id="categoria">
+            <% for(let i = 0; i <c.length; i++) {%> 
+              <option value="<%- c[i].nome %>" <% if(c[i].nome == p[pos].dados[2]){ %> selected<% } %>  ><%- c[i].nome %></option>
+            <% } %>
+          </select>
+          <% for (let i = 3; i < p[pos].nome.length; i++) {%>
+            <label for="<%-p[pos].nome[i] %>"><%- p[pos].nome[i] %></label>
+            <input
+              type="text"
+              name="<%- p[pos].nome[i] %>"
+              id="<%- p[pos].nome[i] %>"
+              placeholder="<%- p[pos].nome[i] %>"
+              required
+              value="<%- p[pos].dados[i] %>">
+          <%} %>
           <button type="submit"><i class="fa-solid fa-arrows-rotate"></i> Atualizar Cadastro</button>
         </fieldset>
       </form>

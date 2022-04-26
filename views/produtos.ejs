@@ -14,6 +14,18 @@
     <div class="adicionar">
         <a href="/produto-cadastrar" class="btn-cadastrar"><i class="fa-solid fa-plus"></i> Cadastrar Produto</a>
     </div>
+    <div class="campos-personalizados">
+      <table>
+        <thead>
+          <tr class="th">
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="td">
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <% if(p.length > 0){ %>
         <table>
           <thead>
@@ -21,7 +33,6 @@
               <th class="id">ID</th>
               <th>Categoria</th>
               <th>Nome</th>
-              <th>Descrição</th>
               <th>Preço</th>
             </tr>
           </thead>
@@ -33,14 +44,13 @@
             <tr>
               <%}%>
               <td class="id"><%= p[i].id %></td>
-              <td><%= p[i].categoria %></td>
-              <td><%= p[i].nome %></td>
-              <td><%= p[i].descricao %></td>
-              <td>R$ <%= p[i].preco %></td>
+              <td><%= p[i].dados[2] %></td>
+              <td><%= p[i].dados[0] %></td>
+              <td>R$ <%= p[i].dados[1] %></td>
+              <td><a id="<%= p[i].id%>" class="visualizar" onclick="visualizar(this)"><i class="fa-solid fa-eye"></i> Personalizados</a></td>
               <td><a href="/produto-editar?id=<%= p[i].id %>" class="editar"><i class="fa-solid fa-pen"></i> Editar</a></td>
               <td>
-                <a class="excluir" href="/produto-deletar?excluir=<%= p[i].id %>"
-                  ><i class="fa-solid fa-trash-can"></i> Excluir</a
+                <a class="excluir" id="<%- p[i].id %>"><i class="fa-solid fa-trash-can"></i> Excluir</a
                 >
               </td>
             </tr>        
@@ -59,5 +69,33 @@
           src="https://kit.fontawesome.com/09c2a18d79.js"
           crossorigin="anonymous"
         ></script>
+        <%- include('./sweetAlerrtProdutos.ejs')%>
+        <script>
+          let produtos = [];
+          produtos = <%- JSON.stringify(p)%>;
+          let th = document.querySelector(".th");
+          let td = document.querySelector(".td");
+          const visualizar = (e) =>{
+            const id = e.id;
+            th.innerHTML = "";
+            td.innerHTML = "";
+            for (let i = 0; i < produtos.length; i++) {
+              if(produtos[i].id == id){
+                for (let c = 3; c < produtos[i].nome.length; c++) {
+                  let titulo = document.createElement('th');
+                  titulo.innerHTML = produtos[i].nome[c];
+                  th.appendChild(titulo);
+                }
+                for (let c = 3; c < produtos[i].dados.length; c++) {
+                  let valor = document.createElement('td');
+                  valor.innerHTML = produtos[i].dados[c];
+                  td.appendChild(valor);
+                }
+                break;
+              }
+              
+            }
+          }
+        </script>
   </body>
 </html>

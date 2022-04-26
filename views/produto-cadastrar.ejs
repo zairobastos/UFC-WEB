@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <%- include('./styleProduto.ejs') %>
+  <head>
+    <%- include('./styleProduto.ejs') %>
+  </head>
+
   <body>
     <h2>Produtos</h2>
     <% if(categoria.length > 0) {%> 
       <form action="/produtos" method="get">
         <fieldset>
           <label for="nome">Nome</label>
-          <input type="text" name="nome" placeholder="Nome" required />
-          <label for="categoria">Categoria</label>
-          <select name="categoria" id="categoria">
+          <input type="text" name="nome" id="nome"placeholder="Nome" required />
+          <label for="preco">Preço</label>
+          <input type="text" name="preco" id="preco" placeholder="Preços" required />
+          <label for="cat">Categoria</label>
+          <select name="categoria" id="cat" onclick="exibirInputs(this)">
             <% for(let i = 0; i <categoria.length; i++) {%> 
               <option value="<%- categoria[i].nome %>"><%- categoria[i].nome %></option>
             <% } %>
           </select>
-          <label for="descricao">Descrição</label>
-          <textarea
-            name="descricao"
-            id="descricao"
-            cols="30"
-            rows="10"
-            required
-          ></textarea>
-          <label for="preco">Preço</label>
-          <input type="text" name="preco" placeholder="Preços" required />
+          <div class="exibibirCampos">
+            
+          </div>
           <button type="submit"> <i class="fa-solid fa-plus"></i> Cadastrar Produto</button>
         </fieldset>
       </form>
@@ -38,5 +36,31 @@
       src="https://kit.fontawesome.com/09c2a18d79.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      let catDados = [];
+      catDados=(<%- JSON.stringify(categoria) %>);
+      let exibir= document.querySelector('.exibibirCampos');
+      const exibirInputs = (e) => {
+        const catSelect = e.value;
+        exibir.innerHTML = '';
+        for (let i = 0; i < catDados.length; i++) {
+          if (catSelect == catDados[i].nome) {
+            for(let j =0; j < catDados[i].personalizado.length; j++){
+              let input = document.createElement('input');
+              let label = document.createElement('label');
+              label.innerHTML = catDados[i].personalizado[j];
+              label.setAttribute('for', catDados[i].personalizado[j]);
+              input.setAttribute('type', 'text');
+              input.setAttribute('name', catDados[i].personalizado[j]);
+              input.setAttribute('id', catDados[i].personalizado[j]);
+              input.setAttribute('placeholder', catDados[i].personalizado[j]);
+              input.setAttribute('required', '');
+              exibir.appendChild(label);
+              exibir.appendChild(input);
+            }
+          }
+        }
+      };
+    </script> 
   </body>
 </html>

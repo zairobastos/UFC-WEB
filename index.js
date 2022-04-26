@@ -44,13 +44,18 @@ app.get("/produto", (req, res) => {
 });
 
 app.get("/produtos", (req, res) => {
+  let dados = [];
+  let nome = [];
+  for (const key in req.query) {
+    dados.push(req.query[key]);
+    nome.push(key);
+  }
   p.push({
     id: p.length == 0 ? 0 : p[p.length - 1].id + 1,
-    categoria: req.query.categoria,
-    nome: req.query.nome,
-    descricao: req.query.descricao,
-    preco: req.query.preco,
+    dados: dados,
+    nome: nome,
   });
+  console.log(p);
   res.redirect("/produto");
 });
 
@@ -60,15 +65,17 @@ app.get("/produto-editar", (req, res) => {
 
 app.post("/produto-editar", (req, res) => {
   let i = parseInt(req.body.pos);
-  p[i].nome = req.body.nome;
-  p[i].descricao = req.body.descricao;
-  p[i].preco = req.body.preco;
-  p[i].categoria = req.body.categoria;
+  p[i].dados[0] = req.body.nome;
+  p[i].dados[1] = req.body.preco;
+  p[i].dados[2] = req.body.categoria;
   res.redirect("/produto");
 });
 
 app.get("/produto-cadastrar", (req, res) => {
-  res.render("produto-cadastrar", { categoria });
+  res.render("produto-cadastrar", {
+    categoria,
+    data: JSON.stringify(categoria),
+  });
 });
 
 app.post("/categoria-salvar", function (req, res, next) {
